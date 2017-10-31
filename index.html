@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src='https://cdn.bootcss.com/jquery/3.2.1/jquery.js'></script>
+</head>
+<body>
+</body>
+</html>
+    <script type="text/javascript">
+        $(function(){
+            $.ajax({
+                url:'http://localhost:3000/item/list',
+                type:'GET',
+                success:function(e){
+                    for(var i=0;i<e.length;i++){
+                        $('body').append("<div><a href='detail.html?id="+e[i].id+"'>"+e[i].name+"</a><button onclick='del("+e[i].id+",$(this))'>删除</button></div>")
+                    }
+                }
+            })
+        })
+
+
+        function del(id,th){
+
+            $.ajax({
+                url:'http://localhost:3000/item/delete',
+                type:'POST',
+                data:{id:id},
+                success: function (e) {
+                    th.parent().remove();
+
+                }
+
+
+            })
+
+        }
+
+
+    </script>
